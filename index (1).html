@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicalFlow AI - Business Proposal</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Design System */
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-dark: #1e40af;
+            --color-secondary: #10b981;
+            --color-accent: #059669;
+            --color-text: #1e293b;
+            --color-text-secondary: #475569;
+            --color-text-light: #64748b;
+            --color-bg: #ffffff;
+            --color-bg-light: #f8fafc;
+            --color-bg-highlight: #eff6ff;
+            --color-border: #e2e8f0;
+            --color-border-light: #f1f5f9;
+            
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-size-xs: 9px;
+            --font-size-sm: 10px;
+            --font-size-base: 11px;
+            --font-size-md: 12px;
+            --font-size-lg: 14px;
+            --font-size-xl: 16px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 28px;
+            
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                page-break-after: avoid;
+                box-shadow: none !important;
+            }
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--color-text);
+            background: #f5f5f5;
+            line-height: 1.4;
+            font-size: var(--font-size-base);
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 20px auto;
+            background: white;
+            padding: 0.5in 0.5in;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header {
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .company-name {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-1);
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-3);
+            font-weight: 500;
+        }
+
+        .founder-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-2);
+        }
+
+        .founder-name {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .founder-credentials {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: 2px;
+        }
+
+        .contact {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            text-align: right;
+        }
+
+        /* Elevator Pitch */
+        .elevator-pitch {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: var(--space-4);
+            border-radius: 6px;
+            margin-bottom: var(--space-4);
+            font-size: var(--font-size-md);
+            line-height: 1.5;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: var(--space-4);
+        }
+
+        .section-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: var(--space-1);
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-2);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
+        /* Problem Section */
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-2);
+            position: relative;
+            font-size: var(--font-size-base);
+            line-height: 1.4;
+        }
+
+        .problem-list li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .industry-pain {
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            color: var(--color-text-secondary);
+            background: var(--color-bg-light);
+            padding: var(--space-3);
+            border-radius: 4px;
+            border-left: 3px solid var(--color-primary);
+        }
+
+        /* Solution Section */
+        .solution-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2);
+        }
+
+        .solution-list li {
+            padding-left: var(--space-3);
+            position: relative;
+            font-size: var(--font-size-base);
+            line-height: 1.4;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: 700;
+        }
+
+        /* Market Section */
+        .market-overview {
+            background: var(--color-bg-highlight);
+            padding: var(--space-3);
+            border-radius: 6px;
+            margin-bottom: var(--space-3);
+        }
+
+        .market-headline {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .market-stat {
+            flex: 1;
+        }
+
+        .market-number {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .market-label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: var(--space-1);
+        }
+
+        .chart-container {
+            height: 140px;
+            margin-bottom: var(--space-3);
+        }
+
+        .segments-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-2);
+            margin-bottom: var(--space-2);
+        }
+
+        .segment-card {
+            background: white;
+            padding: var(--space-2);
+            border-radius: 4px;
+            border: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .segment-name {
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-1);
+        }
+
+        .segment-growth {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-secondary);
+        }
+
+        .segment-size {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-light);
+        }
+
+        .drivers-list {
+            list-style: none;
+        }
+
+        .drivers-list li {
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-1);
+            position: relative;
+            font-size: var(--font-size-sm);
+        }
+
+        .drivers-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+        }
+
+        /* Competitive Advantage */
+        .advantage-list {
+            list-style: none;
+        }
+
+        .advantage-list li {
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-2);
+            position: relative;
+            font-size: var(--font-size-base);
+            line-height: 1.4;
+        }
+
+        .advantage-list li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Business Model */
+        .business-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-3);
+        }
+
+        .revenue-streams {
+            list-style: none;
+        }
+
+        .revenue-streams li {
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-2);
+            position: relative;
+            font-size: var(--font-size-base);
+        }
+
+        .revenue-streams li:before {
+            content: "$";
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: 700;
+        }
+
+        .business-metrics {
+            background: var(--color-bg-light);
+            padding: var(--space-3);
+            border-radius: 4px;
+            font-size: var(--font-size-sm);
+        }
+
+        .business-metrics strong {
+            display: block;
+            margin-bottom: var(--space-1);
+            color: var(--color-text);
+        }
+
+        /* Traction Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+
+        .timeline-item {
+            background: white;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            padding: var(--space-3);
+            position: relative;
+        }
+
+        .timeline-year {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .timeline-content {
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            color: var(--color-text-secondary);
+        }
+
+        /* Funding Section */
+        .funding-highlight {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--color-secondary);
+            border-radius: 6px;
+            padding: var(--space-4);
+        }
+
+        .funding-ask {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .funding-amount {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--color-secondary);
+        }
+
+        .funding-runway {
+            font-size: var(--font-size-md);
+            color: var(--color-text-secondary);
+            align-self: flex-end;
+        }
+
+        .funding-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--space-4);
+            margin-bottom: var(--space-3);
+        }
+
+        .use-of-funds {
+            list-style: none;
+        }
+
+        .use-of-funds li {
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-1);
+            position: relative;
+            font-size: var(--font-size-sm);
+        }
+
+        .use-of-funds li:before {
+            content: "■";
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+        }
+
+        .infinity-fit {
+            list-style: none;
+        }
+
+        .infinity-fit li {
+            margin-bottom: var(--space-1);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: var(--space-3);
+            border-top: 2px solid var(--color-border);
+            margin-top: var(--space-4);
+        }
+
+        .footer-text {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+
+        /* Utility Classes */
+        .bold {
+            font-weight: 700;
+        }
+
+        .text-small {
+            font-size: var(--font-size-sm);
+        }
+
+        .mb-1 {
+            margin-bottom: var(--space-1);
+        }
+
+        .mb-2 {
+            margin-bottom: var(--space-2);
+        }
+
+        .mb-3 {
+            margin-bottom: var(--space-3);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="company-name">ClinicalFlow AI</h1>
+            <p class="tagline">AI-Native Clinical Supply Chain Platform for Pharma &amp; Biotech</p>
+            <div class="founder-info">
+                <div>
+                    <div class="founder-name">Abraham R. Diana</div>
+                    <div class="founder-credentials">15+ Years Clinical Logistics &amp; Supply Chain Leadership</div>
+                </div>
+                <div class="contact">
+                    New York Metro<br>
+                    abraham@sourcedlogistics.com<br>
+                    linkedin.com/in/abrahamdiana
+                </div>
+            </div>
+        </header>
+
+        <!-- Elevator Pitch -->
+        <div class="elevator-pitch">
+            Transforming clinical trial ancillary supply, drug sourcing, and logistics into an autonomous, AI-powered platform that reduces costs by 40%, accelerates trial timelines by 30%, and achieves 99%+ compliance accuracy.
+        </div>
+
+        <!-- The Problem -->
+        <section class="section">
+            <h2 class="section-title">The Problem</h2>
+            <div class="two-column">
+                <div>
+                    <h3 class="section-subtitle">Market Inefficiencies</h3>
+                    <ul class="problem-list">
+                        <li>$5B+ lost annually in expired/misplaced clinical supplies</li>
+                        <li>48% of drug sourcing deliveries delayed (avg 156 days)</li>
+                        <li>$3.5M annual cost per health system from disruptions</li>
+                        <li>80-85% inventory accuracy vs 99%+ required</li>
+                        <li>25% of clinician time wasted on supply management</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="section-subtitle">Industry Pain</h3>
+                    <div class="industry-pain">
+                        Clinical trials face unprecedented complexity: decentralized models, biologics requiring ultra-cold chain, multi-region regulatory compliance—all managed with manual processes, spreadsheets, and disconnected systems.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Solution -->
+        <section class="section">
+            <h2 class="section-title">The Solution</h2>
+            <h3 class="section-subtitle mb-2">AI-Native Platform Combining:</h3>
+            <ul class="solution-list">
+                <li>Autonomous demand forecasting reducing 70% buffer waste</li>
+                <li>Real-time supplier orchestration with predictive risk monitoring</li>
+                <li>Automated regulatory compliance (FDA, cGMP, cGDP, DSCSA)</li>
+                <li>Direct-to-patient logistics with blockchain tracking</li>
+                <li>AI-powered comparator drug sourcing with verified supply chains</li>
+                <li>Predictive analytics: 3-5 day advance demand signals</li>
+            </ul>
+        </section>
+
+        <!-- Market Opportunity -->
+        <section class="section">
+            <h2 class="section-title">Market Opportunity</h2>
+            <div class="market-overview">
+                <div class="market-headline">
+                    <div class="market-stat">
+                        <div class="market-number">$10.44B</div>
+                        <div class="market-label">TAM 2024</div>
+                    </div>
+                    <div class="market-stat">
+                        <div class="market-number" style="color: var(--color-secondary);">138%</div>
+                        <div class="market-label">Growth</div>
+                    </div>
+                    <div class="market-stat">
+                        <div class="market-number">$24.88B</div>
+                        <div class="market-label">TAM 2034</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="segments-grid">
+                <div class="segment-card">
+                    <div class="segment-name">Clinical Ancillary</div>
+                    <div class="segment-growth">7.8%</div>
+                    <div class="segment-size">$1.05B → $2.06B</div>
+                </div>
+                <div class="segment-card">
+                    <div class="segment-name">Comparator Sourcing</div>
+                    <div class="segment-growth">5.9%</div>
+                    <div class="segment-size">$1.25B → $2.22B</div>
+                </div>
+                <div class="segment-card">
+                    <div class="segment-name">Healthcare SCM</div>
+                    <div class="segment-growth">11.0%</div>
+                    <div class="segment-size">$3.24B → $9.20B</div>
+                </div>
+                <div class="segment-card">
+                    <div class="segment-name">Clinical Supplies</div>
+                    <div class="segment-growth">8.9%</div>
+                    <div class="segment-size">$4.90B → $11.40B</div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="section-subtitle" style="font-size: var(--font-size-sm); margin-bottom: var(--space-1);">Market Drivers:</h3>
+                <ul class="drivers-list">
+                    <li>Decentralized trial adoption (30% of trials, up from 21%)</li>
+                    <li>AI/automation #1 supply chain priority (Gartner 2025)</li>
+                    <li>Regulatory pressure for serialization &amp; traceability</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Competitive Advantage -->
+        <section class="section">
+            <h2 class="section-title">Competitive Advantage</h2>
+            <div class="two-column">
+                <div>
+                    <h3 class="section-subtitle">Founder Expertise</h3>
+                    <ul class="advantage-list">
+                        <li>15+ years clinical logistics, ancillary, comparator sourcing</li>
+                        <li>$24.1M P&amp;L management (Marken Regional Director)</li>
+                        <li>50% revenue growth + $470K value created (Neunco)</li>
+                        <li>$700K profitability recovery + 8% margin lift (Thermo Fisher)</li>
+                        <li>99.4% OTIF, 99.8% inventory accuracy track record</li>
+                        <li>Built/scaled 4 cGMP/cGDP facilities ($1.4M-$1.8M projects)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="section-subtitle">Technical Moat</h3>
+                    <ul class="advantage-list">
+                        <li>Proprietary AI models for clinical supply patterns</li>
+                        <li>Pre-built integrations: NetSuite, SAP, CTMS, IRT</li>
+                        <li>Compliance-ready: cGMP/cGDP/21CFR/ISO</li>
+                        <li>Global 3PL network (FDA-licensed, temp-controlled)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Model -->
+        <section class="section">
+            <h2 class="section-title">Business Model</h2>
+            <div class="business-grid">
+                <div>
+                    <h3 class="section-subtitle">Revenue Streams</h3>
+                    <ul class="revenue-streams">
+                        <li>Platform SaaS: $50K-$250K/year per customer</li>
+                        <li>Transaction fees: 3-5% of managed spend</li>
+                        <li>Professional services: Implementation, validation</li>
+                    </ul>
+                    <p class="text-small" style="margin-top: var(--space-2); color: var(--color-text-secondary);"><strong>Target:</strong> Mid-size biotech (Series B+), CROs, pharma decentralized programs</p>
+                </div>
+                <div class="business-metrics">
+                    <strong>Unit Economics</strong>
+                    $400K-$800K LTV<br>
+                    75-80% gross margin at scale
+                </div>
+            </div>
+        </section>
+
+        <!-- Traction Roadmap -->
+        <section class="section">
+            <h2 class="section-title">Traction Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 1</div>
+                    <div class="timeline-content">
+                        2 pilots, $5M+ spend managed<br>
+                        <strong>$500K ARR</strong><br>
+                        SOC2/ISO/FDA compliance
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 2</div>
+                    <div class="timeline-content">
+                        10 customers, $50M+ spend<br>
+                        <strong>$2.5M ARR</strong><br>
+                        Launch AI marketplace
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 3</div>
+                    <div class="timeline-content">
+                        30+ customers, $200M+ spend<br>
+                        <strong>$10M ARR</strong><br>
+                        Cash-flow positive
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funding & Infinity Alignment -->
+        <section class="section">
+            <h2 class="section-title">Funding &amp; Infinity Constellation Alignment</h2>
+            <div class="funding-highlight">
+                <div class="funding-ask">
+                    <div>
+                        <div style="font-size: var(--font-size-md); color: var(--color-text-secondary); margin-bottom: var(--space-1);">Seeking:</div>
+                        <div class="funding-amount">$2.5M Seed</div>
+                    </div>
+                    <div class="funding-runway">
+                        18-24 month runway to Series A
+                    </div>
+                </div>
+                
+                <div class="funding-grid">
+                    <div>
+                        <h3 class="section-subtitle" style="font-size: var(--font-size-md);">Use of Funds</h3>
+                        <ul class="use-of-funds">
+                            <li>40% Product/AI Engineering</li>
+                            <li>30% Go-to-Market</li>
+                            <li>20% Regulatory/Compliance</li>
+                            <li>10% Operations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="section-subtitle" style="font-size: var(--font-size-md);">Perfect Fit for Infinity Constellation</h3>
+                        <ul class="infinity-fit">
+                            <li>✓ AI-first service-to-platform ($9T services economy)</li>
+                            <li>✓ Lean team model (8-12 people to $10M ARR)</li>
+                            <li>✓ Founder-operator with deep domain + execution track record</li>
+                            <li>✓ Replaces consultancy with semi-automated platform</li>
+                            <li>✓ Clear path to $100M+ ARR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">Backed by proven expertise. Powered by AI. Built for the future of clinical trials.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Market Growth Chart
+        const ctx = document.getElementById('marketChart').getContext('2d');
+        
+        const data = {
+            labels: ['2024', '2026', '2028', '2030', '2032', '2034'],
+            datasets: [
+                {
+                    label: 'Clinical Ancillary',
+                    data: [1.05, 1.21, 1.39, 1.60, 1.82, 2.06],
+                    backgroundColor: '#1FB8CD',
+                    stack: 'stack1'
+                },
+                {
+                    label: 'Comparator Sourcing',
+                    data: [1.25, 1.40, 1.57, 1.75, 1.97, 2.22],
+                    backgroundColor: '#FFC185',
+                    stack: 'stack1'
+                },
+                {
+                    label: 'Healthcare SCM',
+                    data: [3.24, 4.00, 4.94, 6.10, 7.54, 9.20],
+                    backgroundColor: '#B4413C',
+                    stack: 'stack1'
+                },
+                {
+                    label: 'Clinical Supplies',
+                    data: [4.90, 5.80, 6.86, 8.11, 9.59, 11.40],
+                    backgroundColor: '#5D878F',
+                    stack: 'stack1'
+                }
+            ]
+        };
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12,
+                            font: {
+                                size: 9
+                            },
+                            padding: 8
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': $' + context.parsed.y.toFixed(2) + 'B';
+                            },
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return 'Total: $' + sum.toFixed(2) + 'B';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 9
+                            }
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value + 'B';
+                            },
+                            font: {
+                                size: 9
+                            }
+                        },
+                        grid: {
+                            color: '#e5e7eb'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
